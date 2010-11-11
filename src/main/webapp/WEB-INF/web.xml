@@ -25,6 +25,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>createaccount</servlet-name>
+        <servlet-class>csci3308.friendatlas.createaccount</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createaccount</servlet-name>
+        <url-pattern>/createaccount</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>logout</servlet-name>
         <servlet-class>csci3308.friendatlas.Logout</servlet-class>
     </servlet>

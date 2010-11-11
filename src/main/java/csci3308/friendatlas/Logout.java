@@ -7,8 +7,6 @@ import javax.servlet.http.*;
 
 
 public class Logout extends HttpServlet {
-
-    ResourceBundle rb = ResourceBundle.getBundle("LocalStrings");
     
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)

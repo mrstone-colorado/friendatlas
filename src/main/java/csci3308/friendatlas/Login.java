@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
 
         out.println("<P>");
         out.print("<form action=\"");
-        out.print("Login\" ");
+        out.print("login\" ");
         out.println("method=POST>");
         out.println("E-Mail:");
         out.println("<input type=text size=20 name=email>");
@@ -46,7 +46,7 @@ public class Login extends HttpServlet {
         out.println("<br>");
         out.println("<input type=submit>");
         out.println("</form>");
-		out.println("<br /><a href=\"/Friend_Atlas2/CreateAccount\">Create an Account</a>");
+		out.println("<br /><a href=\"/createaccount\">Create an Account</a>");
 		
         out.println("</body>");
         out.println("</html>");
@@ -127,7 +127,7 @@ public class Login extends HttpServlet {
 						out.println("last name = " + rs.getString("namel") + "<br>");
 						out.println("<br />");
 						
-						out.println("<meta http-equiv=\"refresh\" content=\"5;url=/Friend_Atlas2/Main\">");
+						out.println("<meta http-equiv=\"refresh\" content=\"5;url=/main\">");
 					}
 				}	
 				

@@ -8,8 +8,6 @@ import javax.servlet.http.*;
 
 
 public class Main extends HttpServlet {
-
-    ResourceBundle rb = ResourceBundle.getBundle("LocalStrings");
     
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
@@ -45,11 +43,11 @@ public class Main extends HttpServlet {
 							+ value + "<br>");
 			}
 			
-						out.println("<br /><br /><a href=\"/Friend_Atlas2/Logout\">Logout</a>");
+						out.println("<br /><br /><a href=\"/logout\">Logout</a>");
 		}
 
 		else {
-			out.println("You are not logged in please <a href=\"/Friend_Atlas2/Login\">Login</a>");
+			out.println("You are not logged in please <a href=\"/login\">Login</a>");
 		}
 
     }
