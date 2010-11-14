@@ -21,24 +21,20 @@ public class Login extends HttpServlet {
         out.println("<html>");
         out.println("<body>");
         out.println("<head>");
-		
-
 		out.println("<title>Friend Atlas Login</title>");
         out.println("</head>");
         out.println("<body bgcolor=\"white\">");
 		
 		
 		
-        out.println("<h3>Login Page For Friend Atlas</h3>");
+        out.println("<DIV ALIGN=CENTER> <h3>Login Page For Friend Atlas</h3>");
 		//out.println("Test");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
 
-        out.println("<P>");
-        out.print("<form action=\"");
+        //out.println("<P>");
+        out.print("<img src=\"atlas.jpg\" width=\"250\" height=\"150\" alt=\"Friend Atlas logo\" /> <form action=\"");
         out.print("login\" ");
         out.println("method=POST>");
-        out.println("E-Mail:");
+        out.println("<br />E-Mail:");
         out.println("<input type=text size=20 name=email>");
         out.println("<br>");
         out.println("Password: ");
@@ -46,7 +42,7 @@ public class Login extends HttpServlet {
         out.println("<br>");
         out.println("<input type=submit>");
         out.println("</form>");
-		out.println("<br /><a href=\"/createaccount\">Create an Account</a>");
+		out.println("<br /><a href=\"/createaccount\">Create an Account</a></DIV>");
 		
         out.println("</body>");
         out.println("</html>");
@@ -127,7 +123,7 @@ public class Login extends HttpServlet {
 						out.println("last name = " + rs.getString("namel") + "<br>");
 						out.println("<br />");
 						
-						out.println("<meta http-equiv=\"refresh\" content=\"5;url=/main\">");
+						out.println("<meta http-equiv=\"refresh\" content=\"2;url=/main\">");
 					}
 				}	
 				

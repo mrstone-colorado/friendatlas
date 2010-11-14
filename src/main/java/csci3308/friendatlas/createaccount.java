@@ -26,7 +26,7 @@ public class createaccount extends HttpServlet {
         out.println("<title>Create An account</title>");
         out.println("</head>");
         out.println("<body bgcolor=\"white\">");
-        out.println("<h1>Creat an Account</h1>");
+        out.println("<DIV ALIGN=CENTER> <h1>Create an Account</h1>");
 		
 		
 
@@ -46,7 +46,7 @@ public class createaccount extends HttpServlet {
         out.println("<input type=password size=20 name=passwordconf>");
         out.println("<br>");
         out.println("<input type=submit>");
-        out.println("</form>");
+        out.println("</form> </DIV>");
 		
 		
         out.println("</body>");
