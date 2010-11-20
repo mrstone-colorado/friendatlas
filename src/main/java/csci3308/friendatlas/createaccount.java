@@ -64,7 +64,7 @@ public class createaccount extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 		
-		String DBUrl = "jdbc:mysql:///testDB?user='root'";
+		String DBUrl = "jdbc:mysql://24.8.149.63/testDB";
         Connection conn = null;
         Statement stmt = null;
         try
@@ -79,7 +79,7 @@ public class createaccount extends HttpServlet {
                 out.println("Unable to Load Driver: " + Ex.toString() + "<br>");
             }
 			// get a new connection object 
-            conn = DriverManager.getConnection(DBUrl);
+            conn = DriverManager.getConnection(DBUrl, "root", "ararat");
             // get a new statement object 
             stmt = conn.createStatement();
             // and execute a simple query 

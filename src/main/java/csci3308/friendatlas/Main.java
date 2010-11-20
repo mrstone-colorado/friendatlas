@@ -13,7 +13,7 @@ public class Main extends HttpServlet {
                       HttpServletResponse response)
         throws IOException, ServletException
     {
-		String DBUrl = "jdbc:mysql:///testDB?user='root'";
+		String DBUrl = "jdbc:mysql://24.8.149.63/testDB";
         Connection conn = null;
         Statement stmt = null;
 		
@@ -23,7 +23,14 @@ public class Main extends HttpServlet {
 
         HttpSession session = request.getSession(true);
 	
-		String loginvalue = session.getAttribute("LoggedIn").toString();
+		Object loginobj = session.getAttribute("LoggedIn");
+		if (loginobj == null )
+		{
+			out.println("You are not logged in please <a href=\"/login\">Login</a>");
+			return;
+		}
+		
+		String loginvalue = loginobj.toString();
 		
 		if ( loginvalue.equals("TRUE") ) {
 
@@ -43,7 +50,7 @@ public class Main extends HttpServlet {
 				{
 					out.println("Unable to Load Driver: " + Ex.toString() + "<br>");
 				}
-				conn = DriverManager.getConnection(DBUrl);
+				conn = DriverManager.getConnection(DBUrl, "root", "ararat");
 				stmt = conn.createStatement();
 				String query = "SELECT * from Users where id='" + Userid + "'";
 				ResultSet rs = stmt.executeQuery(query);

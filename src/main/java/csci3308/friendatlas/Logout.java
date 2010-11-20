@@ -29,7 +29,15 @@ public class Logout extends HttpServlet {
 
         HttpSession session = request.getSession(true);
 	
-		String loginvalue = session.getAttribute("LoggedIn").toString();
+		Object loginobj = session.getAttribute("LoggedIn");
+		
+		if (loginobj == null)
+		{
+			out.println("You are not logged in please <a href=\"/login\">Login</a>");
+			return;
+		}
+		
+		String loginvalue = loginobj.toString();
 		
 		if ( loginvalue.equals("TRUE") ) {
 			//session.invalidate();
