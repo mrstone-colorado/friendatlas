@@ -123,7 +123,7 @@ public class Login extends HttpServlet {
 						out.println("last name = " + rs.getString("namel") + "<br>");
 						out.println("<br />");
 						
-						out.println("<meta http-equiv=\"refresh\" content=\"2;url=/main\">");
+						out.println("<meta http-equiv=\"refresh\" content=\"0;url=/main\">");
 					}
 				}	
 				
