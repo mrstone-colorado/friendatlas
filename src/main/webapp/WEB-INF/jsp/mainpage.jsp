@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -14,6 +15,7 @@
 <b>${headertop}</b>
 
 Welcome, ${UserName}
+<br />${mysqlresponse}
 	
 <div id="page-wrap">
 
@@ -23,16 +25,24 @@ Welcome, ${UserName}
 <div id="map_canvas"></div>
 <div id="scrollDown"></div>
 <div id="addresBook">
-<form action="/main">
+
+<c:forEach var="contact" items="${contacts}">
+<script type="text/javascript" language="JavaScript">
+addElement('${contact}');
+</script>
+</c:forEach>
+
+
+<form action="/main" method=POST>
 <h1>Add a contact</h1>
-<p><label for="name">first</label> <input type="text" id="first" /></p>
-<p><label for="name">last</label> <input type="text" id="last" /></p>
-<p><label for="e-mail">e-mail</label> <input type="text" id="e-mail" /><br /></p>
-<p><label for="e-mail">address</label> <input type="text" id="address1" /><br /></p>
-<p><label for="name">city</label> <input type="text" id="city" /></p>
-<p><label for="name">sate</label> <input type="text" id="state" /></p>
-<p><label for="name">zip</label> <input type="text" id="zip" /></p>
-<p class="submit"><input type="submit" value="Submit" /></p>
+<p><label for="name">first</label> <input type="text" name="name_first" id="first" /></p>
+<p><label for="name">last</label> <input type="text" name="name_last" id="last" /></p>
+<p><label for="e-mail">e-mail</label> <input type="text" name="email" id="email" /><br /></p>
+<p><label for="e-mail">address</label> <input type="text" name="address" id="address1" /><br /></p>
+<p><label for="name">city</label> <input type="text" name="city" id="city" /></p>
+<p><label for="name">state</label> <input type="text" name="state" id="state" /></p>
+<p><label for="name">zip</label> <input type="text" name="zip" id="zip" /></p>
+<p class="submit"><input type="submit" name="submit" value="Submit" /></p>
 </form> 
 
 

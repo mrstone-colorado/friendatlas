@@ -9,18 +9,20 @@ function initialize()
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
+        
+    
 }
 
-function addElement() {
+function addElement(first_name) {
   var ni = document.getElementById('scrollDown');
   var numi = document.getElementById('scrollDown');
-  var num = (document.getElementById('scrollDown').value -1)+ 2;
+  var num = first_name;
   numi.value = num;
   var newdiv = document.createElement('div');
   var divIdName = 'my'+num+'Div';
   newdiv.setAttribute('id',divIdName);
   newdiv.setAttribute('color', 'FFFAF0' );
-  newdiv.innerHTML = 'Element Number '+num+' has been added! <a href=\'#\' onclick=\'removeElement('+divIdName+')\'>Remove the div "'+divIdName+'"</a>';
+  newdiv.innerHTML = " <a href='/main?name=" + num + "'>" + num + "</a>";
   ni.appendChild(newdiv);
 }
 
