@@ -1,53 +1,75 @@
+
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html" %>
+<%@ page import="csci3308.friendatlas.*" %>
+<%@ page import="java.util.*" %>
+<c:set var="space" value=" "/>
 <html>
 <head>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
-<link rel="stylesheet" type="text/css" href="style.css" />
-<script type="text/javascript"
-    src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="script.js"></script>
-
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript"
+            src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript">
+        function popFriends() {
+        <c:forEach var="friend" items="${userFriends}">
+             <c:set var="friendAddress" value="${friend.address}${space}${friend.city}${space}${friend.state}"></c:set>
+            pop('<c:out value="${friendAddress}"/>');
+        </c:forEach>
+        }
+    </script>
 </head>
-<body onload="initialize()">
 
-<b>${headertop}</b>
+<body onload="initialize();popFriends();">
 
 Welcome, ${UserName}
+
 <br />${mysqlresponse}
-	
+
 <div id="page-wrap">
 
-  	
-<div id="FBLogo" onClick="populate()"></div>
-<div id="FALogo" onClick="doFunction()"></div>
+
+<div id="FBLogo" onClick="showAddress()"></div>
+<div id="FALogo" onClick="codeAddress()"></div>
 <div id="map_canvas"></div>
-<div id="scrollDown"></div>
+<div id="scrollDown">
+    <table>
+        <tr><th>Contacts</th></tr>
+        <c:forEach var="friend" items="${userFriends}">
+            <c:set var="friendAddress" value="${friend.address}${space}${friend.city}${space}${friend.state}"></c:set>
+            <tr><td onclick><a color=#FF0000 style="text-decoration:none" href="javascript:codeAddress('<c:out value="${friendAddress}"/>')"><c:out value="${friend.firstName}${space}${friend.lastName}"/></a></td></tr>
+        </c:forEach>
+    </table>
+</div>
 <div id="addresBook">
 
-<c:forEach var="contact" items="${contacts}">
-<script type="text/javascript" language="JavaScript">
-addElement('${contact}');
+    <form action="<c:url value="/main"/>" method=POST>
+
+        <p><label for="first">first name</label><input type="text" name="first" id="first" /></p>
+        <p><label for="last">last</label> <input type="text" name="last" id="last" /></p>
+        <p><label for="e-mail">e-mail</label> <input type="text" name="email" id="email" /><br /></p>
+        <p><label for="address">address</label> <input type="text" name="address" id="address1" /><br /></p>
+        <p><label for="city">city</label> <input type="text" name="city" id="city" /></p>
+        <p><label for="state">state</label> <input type="text" name="state" id="state" /></p>
+        <p><label for="zip">zip</label> <input type="text" name="zip" id="zip" /></p>
+        <p class="submit"><input type="submit" name="submit" value="Submit" /></p>
+
+    </form>
+
+</div>
+</div>
+<script type="text/javascript">
+    <c:forEach var="friend" items="${userFriends}">
+        <c:set var="friendAddress" value="${friend.address}${space}${friend.city}${space}${friend.state}"></c:set>
+        pop('<c:out value="${friendAddress}"/>');
+    </c:forEach>
 </script>
-</c:forEach>
 
-
-<form action="/main" method=POST>
-<h1>Add a contact</h1>
-<p><label for="name">first</label> <input type="text" name="name_first" id="first" /></p>
-<p><label for="name">last</label> <input type="text" name="name_last" id="last" /></p>
-<p><label for="e-mail">e-mail</label> <input type="text" name="email" id="email" /><br /></p>
-<p><label for="e-mail">address</label> <input type="text" name="address" id="address1" /><br /></p>
-<p><label for="name">city</label> <input type="text" name="city" id="city" /></p>
-<p><label for="name">state</label> <input type="text" name="state" id="state" /></p>
-<p><label for="name">zip</label> <input type="text" name="zip" id="zip" /></p>
-<p class="submit"><input type="submit" name="submit" value="Submit" /></p>
-</form> 
-
-
-</div>
-</div>
-${logoutlink}
+${LogoutLink}
 </body>
 </html>

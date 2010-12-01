@@ -8,173 +8,100 @@ import java.sql.*;
 
 
 public class Main extends HttpServlet {
-    
+
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
-        throws IOException, ServletException
-    {
-		String DBUrl = "jdbc:mysql://24.8.149.63/testDB";
+            throws IOException, ServletException {
+        String DBUrl = "jdbc:mysql://localhost/friendatlas";
         Connection conn = null;
         Statement stmt = null;
-		
+
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
 
         HttpSession session = request.getSession(true);
-		List<String> contacts = new ArrayList<String>();
-	
-		Object loginobj = session.getAttribute("LoggedIn");
-		if (loginobj == null )
-		{
-			out.println("You are not logged in please <a href=\"/login\">Login</a>");
-			return;
-		}
-		
-		String loginvalue = loginobj.toString();
-		
-		if ( loginvalue.equals("TRUE") ) {
+        List<String> contacts = new ArrayList<String>();
+        List<Contact> userFriends = new ArrayList<Contact>();
 
-			String Headertext = "This is the main page where everything will be.<br /><br />";
+        Object logInObject = session.getAttribute("LoggedIn");
+        Object logName = session.getAttribute("Useremail");
 
-			String Userid = session.getAttribute("UserID").toString();
-			
-			String user_name = "";
-			
-			try
-			{
-				try
-				{
-					Class.forName("org.gjt.mm.mysql.Driver").newInstance();
-				}
-				catch (Exception Ex)
-				{
-					out.println("Unable to Load Driver: " + Ex.toString() + "<br>");
-				}
-				conn = DriverManager.getConnection(DBUrl, "root", "ararat");
-				stmt = conn.createStatement();
-				String query = "SELECT * from Users where id='" + Userid + "'";
-				ResultSet rs = stmt.executeQuery(query);
-				
-				while (rs.next())
-				{
-					user_name = "<span style=\"color:blue\">" + rs.getString("namef") + " " + rs.getString("namel") + "</span>";
-				}
-				
-				String query2 = "SELECT * from contacts where userid='" + Userid + "'";
-				ResultSet rs2 = stmt.executeQuery(query2);
-				
-				while (rs2.next())
-				{
-					String friend = rs2.getString("firstname") + " " + rs2.getString("lastname");
-					contacts.add( friend );
-				}
-				
-			}
-			catch (SQLException sqlEx) 
-			{
-				out.println("Caught SQL Exception: " + sqlEx.toString() + "<br>");
-			}
-				
-			
-			String logo = "<br /><br /><a href=\"/logout\">Logout</a>";
-			
-			request.setAttribute("contacts", contacts); 
-			request.setAttribute("UserName", user_name); 
-			request.setAttribute("headertop", Headertext); 
-			request.setAttribute("logoutlink", logo); 
-			request.getRequestDispatcher("WEB-INF/jsp/mainpage.jsp").forward(request, response);
-		}
+        String userName = logName.toString();
 
-		else {
-			out.println("<html>");
-			out.println("<body bgcolor=\"white\">");
-			out.println("<head>");
-			
-			String title = "Main Page";
-			out.println("<title>" + title + "</title>");
-			out.println("</head>");
-			out.println("<body>");
-			
-			
-			out.println("<h3>" + title + "</h3>");
-			out.println("You are not logged in please <a href=\"/login\">Login</a>");
-		}
+        if (logInObject.equals(null)) {
+            out.println("You are not logged in please <a href=\"/login\">/loginpage.html</a>");
+            return;
+        }
 
+        String[] objs = new String[100];
+
+        for (int i = 0; i < objs.length; i++)
+            objs[i] = "John Correa";
+
+        String logInValue = logInObject.toString();
+
+        if (logInValue.equals("TRUE")) {
+
+            int userID = Integer.parseInt(session.getAttribute("UserID").toString());
+
+            userFriends.addAll(ContactController.listContacts(userID));
+
+            String logo = "<br /><br /><a href=\"/logout\">Logout</a>";
+
+            request.setAttribute("userFriends", userFriends);
+            request.setAttribute("UserName", userName);
+            request.setAttribute("LogoutLink", logo);
+            request.getRequestDispatcher("WEB-INF/jsp/mainpage.jsp").forward(request, response);
+        } else {
+            out.println("You are not logged in please <a href=\"/login\">loginpage.html</a>");
+        }
     }
 
     public void doPost(HttpServletRequest request,
-                      HttpServletResponse response)
-        throws IOException, ServletException
-    {
-		String DBUrl = "jdbc:mysql://24.8.149.63/testDB";
+                       HttpServletResponse response)
+            throws IOException, ServletException {
+        String DBUrl = "jdbc:mysql://localhost/friendatlas";
         Connection conn = null;
         Statement stmt = null;
-		request.setAttribute("mysqlresponse", "<span style=\"color:red\">Not Succesfully Inserted, please enter ALL information</span>"); 
-		
+
         response.setContentType("text/html");
-		
         PrintWriter out = response.getWriter();
-		
         HttpSession session = request.getSession(true);
-		
-		Object loginobj = session.getAttribute("LoggedIn");
-		if (loginobj == null )
-		{
-			out.println("You are not logged in please <a href=\"/login\">Login</a>");
-			return;
-		}
 
-		String loginvalue = loginobj.toString();
-		
-		if ( loginvalue.equals("TRUE") ) {
-			
-		String Userid = session.getAttribute("UserID").toString();
+        Object logInObject = session.getAttribute("LoggedIn");
 
-			try
-			{
-				
-			try
-			{
-				Class.forName("org.gjt.mm.mysql.Driver").newInstance();
-			}
-			catch (Exception Ex)
-			{
-				out.println("Unable to Load Driver: " + Ex.toString() + "<br>");
-			}
-			conn = DriverManager.getConnection(DBUrl, "root", "ararat");
-			stmt = conn.createStatement();
-			
-			String namef = request.getParameter("name_first");
-			String namel = request.getParameter("name_last");		
-			String email = request.getParameter("email");
-			String address = request.getParameter("address");
-			String city = request.getParameter("city");
-			String state = request.getParameter("state");
-			String zip = request.getParameter("zip");
-			
-			if ((namef != null && namef != "") && (namel != null && namel != "") && (email != null && email != "") && (address != null && address != "")  && (city != null && city != "") && (state != null && state != "")) {
-				
-				try {
-					String Query = "insert into contacts (firstname, lastname, email, address, zip, city, state, userid) values (\"" + namef + "\",\"" + namel + "\",\"" + email + "\",\"" + address + "\",\"" + zip + "\",\"" + city + "\",\"" + state + "\",\"" + Userid + "\")";	
-					int written =  stmt.executeUpdate(Query); 
-					request.setAttribute("mysqlresponse", "<span style=\"color:green\">Succesfuly Inserted</span>"); 
-				}
-				catch (SQLException sqlEx) 
-				{
-					out.println("Caught SQL Exception: " + sqlEx.toString() + "<br>");
-				}
-			
-			}
-			}
-			catch (SQLException sqlEx) 
-			{
-				out.println("Caught SQL Exception: " + sqlEx.toString() + "<br>");
-			}
-			
-		}
-		
-		
+        if (logInObject.equals(null)) {
+            out.println("You are not logged in please <a href=\"/login\">Login</a>");
+            return;
+        }
+
+        String logInValue = logInObject.toString();
+
+        boolean friendAdded = false;
+
+        if (logInValue.equals("TRUE")) {
+
+            int userID = Integer.parseInt(session.getAttribute("UserID").toString());
+
+            String firstName = request.getParameter("first");
+            String lastName = request.getParameter("last");
+            String email = request.getParameter("email");
+            String address = request.getParameter("address");
+            String city = request.getParameter("city");
+            String state = request.getParameter("state");
+            String zip = request.getParameter("zip");
+
+            ContactController cc = new ContactController();
+
+            friendAdded = cc.addToList(userID, firstName, lastName, email, address, city, state, zip);
+
+            if (friendAdded == true)
+                request.setAttribute("mysqlresponse", "<span style=\"color:green\">Succesfuly Inserted</span>");
+            else
+                request.setAttribute("mysqlresponse", "<span style=\"color:red\">Not Succesfully Inserted, please enter ALL information</span>");
+
+        }
         doGet(request, response);
     }
 
