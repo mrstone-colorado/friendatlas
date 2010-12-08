@@ -63,12 +63,7 @@ Welcome, ${UserName}
 
 </div>
 </div>
-<script type="text/javascript">
-    <c:forEach var="friend" items="${userFriends}">
-        <c:set var="friendAddress" value="${friend.address}${space}${friend.city}${space}${friend.state}"></c:set>
-        pop('<c:out value="${friendAddress}"/>');
-    </c:forEach>
-</script>
+
 
 ${LogoutLink}
 </body>
