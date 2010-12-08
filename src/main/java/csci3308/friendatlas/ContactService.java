@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.*;
 import java.sql.*;
 
-public class ContactController
+public class ContactService
 {
     public static ArrayList<Contact> listContacts(int id) {
 

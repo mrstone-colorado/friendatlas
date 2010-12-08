@@ -5,7 +5,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class Login extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
@@ -27,7 +27,7 @@ public class Login extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        LoginController lg = new LoginController();
+        LoginService lg = new LoginService();
         userID = lg.verifyUser(email, password);
 
         out.println("<b>Proceed " + " " + email + "</b>");

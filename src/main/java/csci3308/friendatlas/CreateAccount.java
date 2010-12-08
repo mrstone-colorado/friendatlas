@@ -39,7 +39,7 @@ public class CreateAccount extends HttpServlet {
 
         if (( firstName != null && firstName != "" ) && ( lastName != null && firstName != "" ) && ( email != null && email != "" ) && ( password != null && password != "" ))
         {
-            CreateAccountController cac = new CreateAccountController();
+            CreateAccountService cac = new CreateAccountService();
             isUser = cac.checkForExistingAccount( email, password );
 
             if ( isUser == false )

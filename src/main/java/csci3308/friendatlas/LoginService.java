@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.*;
 import java.sql.*;
 
-public class LoginController {
+public class LoginService {
 
     public int verifyUser(String em, String pw) {
 

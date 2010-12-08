@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import java.sql.*;
 
 
-public class Main extends HttpServlet {
+public class MainServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
@@ -45,7 +45,7 @@ public class Main extends HttpServlet {
 
             int userID = Integer.parseInt(session.getAttribute("UserID").toString());
 
-            userFriends.addAll(ContactController.listContacts(userID));
+            userFriends.addAll(ContactService.listContacts(userID));
 
             String logo = "<br /><br /><a href=\"/logout\">Logout</a>";
 
@@ -92,7 +92,7 @@ public class Main extends HttpServlet {
             String state = request.getParameter("state");
             String zip = request.getParameter("zip");
 
-            ContactController cc = new ContactController();
+            ContactService cc = new ContactService();
 
             friendAdded = cc.addToList(userID, firstName, lastName, email, address, city, state, zip);
 

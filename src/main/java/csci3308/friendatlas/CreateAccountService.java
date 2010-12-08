@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 import java.sql.*;
 
 
-public class CreateAccountController {
+public class CreateAccountService {
 
 
     public boolean checkForExistingAccount(String em, String pw) {
