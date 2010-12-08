@@ -1,0 +1,11 @@
+#How to clone:
+git clone git://github.com/mrstone-colorado/friendatlas.git
+
+#How to push
+git add (files)
+git commit -m 'Explanation of changes
+git push origin master
+
+#How to ....
+
+
