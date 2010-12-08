@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        LoginService lg = new LoginService();
+        LoginService lg = LoginServiceFactory.getInstance();
         userID = lg.verifyUser(email, password);
 
         out.println("<b>Proceed " + " " + email + "</b>");

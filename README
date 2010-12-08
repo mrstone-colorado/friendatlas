@@ -6,6 +6,9 @@ git add (files)
 git commit -m 'Explanation of changes
 git push origin master
 
+#How to fetch merge or rebase?:
+git pull
+
 #How to ....
 
 
